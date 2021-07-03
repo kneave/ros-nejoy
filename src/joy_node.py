@@ -20,6 +20,8 @@ if __name__ == '__main__':
     try:
         # Get a joystick
         with ControllerResource() as joystick:
+            print("Joystick connected.")
+
             # Loop until disconnected
             while joystick.connected:
                 # Create message
@@ -32,29 +34,30 @@ if __name__ == '__main__':
                 joy_msg.axes[1] = joystick.ly
 
                 # Right Stick
-                joy_msg.axes[2] = joystick.rx
-                joy_msg.axes[3] = joystick.ry
+                joy_msg.axes[3] = joystick.rx
+                joy_msg.axes[4] = joystick.ry
 
                 # Rotation 
-                joy_msg.axes[4] = joystick.lt
-                joy_msg.axes[5] = joystick.rt
+                joy_msg.axes[2] = joystick.tx
+                joy_msg.axes[5] = joystick.ty
 
                 # Encoder
-#               joy_msg.axes[6] = joystick.ty
+                joy_msg.axes[6] = joystick.lt
 
                 # buttons = [s1, s2, s3_down, s4_up, s5, encoder, trigger, left_top, right_top]
-                joy_msg.buttons[0] = CheckNone(joystick.cross) 
-                joy_msg.buttons[1] = CheckNone(joystick.circle) 
-                joy_msg.buttons[2] = CheckNone(joystick.ddown)
-                joy_msg.buttons[3] = CheckNone(joystick.dup)
-                joy_msg.buttons[4] = CheckNone(joystick.square)
+                joy_msg.buttons[0] = CheckNone(joystick.square) 
+                joy_msg.buttons[1] = CheckNone(joystick.triangle) 
+                joy_msg.buttons[2] = CheckNone(joystick.l1)
+                joy_msg.buttons[3] = CheckNone(joystick.r1)
+                joy_msg.buttons[4] = CheckNone(joystick.circle)
                 joy_msg.buttons[5] = CheckNone(joystick.select)
-                joy_msg.buttons[6] = CheckNone(joystick.triangle)
+                joy_msg.buttons[6] = CheckNone(joystick.cross)
                 joy_msg.buttons[7] = CheckNone(joystick.ls)
                 joy_msg.buttons[8] = CheckNone(joystick.rs)
                 
-                rospy.loginfo(joy_msg)
+#                rospy.loginfo(joy_msg)
                 pub.publish(joy_msg)
+#                print("Sending message")
 
                 sleep(0.05)
             
