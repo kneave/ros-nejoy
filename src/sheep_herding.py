@@ -58,16 +58,47 @@ def DoAction(event):
         msg.servo14 = 999
         msg.servo15 = 999    
 
-        if event.code == 16:
+        if event.code == 16:    #   Q
             print("left arm above sheep")
+            msg.servo0 = -0.01 
+            msg.servo1 =  0.29
+            msg.servo2 =  0.12
+            msg.servo3 = -0.05
+            msg.servo4 =  0.22
+            msg.servo5 = -0.34
+            msg.servo7 = -1.00
+
         if event.code == 17:
             print("left arm around sheep")
-            msg.servo7 = -1.0
+            # msg.servo0 = -0.01 
+            # msg.servo1 =  0.29
+            # msg.servo2 =  0.12
+            # msg.servo3 = -0.05
+            msg.servo4 = -0.77
+            msg.servo5 =  0.80
+            # msg.servo7 = -1.00
+
         if event.code == 18:
             print("left arm grip sheep")
-            msg.servo7 = -0.4
+            # msg.servo0 = -0.01 
+            # msg.servo1 =  0.29
+            # msg.servo2 =  0.12
+            # msg.servo3 = -0.05
+            # msg.servo4 = -0.77
+            # msg.servo5 =  0.80
+            msg.servo7 = -0.20
+
         if event.code == 19:
             print("left arm lift sheep")
+            # -0.01, 0.38, 0.12, 0.76, -0.77, 0.80
+            # msg.servo0 = -0.01 
+            msg.servo1 =  0.38
+            # msg.servo2 =  0.12
+            msg.servo3 =  0.76
+            # msg.servo4 = -0.77
+            # msg.servo5 =  0.80
+            # msg.servo7 = -0.20
+
         if event.code == 30:
             print("right arm above sheep")
         if event.code == 31:
