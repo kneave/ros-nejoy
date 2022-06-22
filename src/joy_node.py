@@ -13,14 +13,15 @@ def CheckNone(input):
     else:
         return 1
 
-def DeadSpot(input):
-    input = input - 0.5
-    if -0.1 <= input <= 0.1:
+def TriggerDeadSpot(input):
+    # triggers are 0..1 rather than -1..1 so convert
+    input = (input * 2) - 1
+    if -0.15 <= input <= 0.15:
         return 0
     else:
         return input
 
-pub = rospy.Publisher('joy', Joy, queue_size=1)
+pub = rospy.Publisher('joy', Joy, queue_size=5)
 rospy.init_node('joy_node', anonymous=True)
 
 if __name__ == '__main__':
@@ -40,15 +41,18 @@ if __name__ == '__main__':
                 
                 #  Left Stick
                 joy_msg.axes[0] = joystick.lx
-                joy_msg.axes[1] = joystick.ly
+                joy_msg.axes[1] = joystick.ly * -1
 
                 # Right Stick
                 joy_msg.axes[3] = joystick.rx
                 joy_msg.axes[4] = joystick.ry
 
                 # Rotation 
-                joy_msg.axes[2] = DeadSpot(joystick.lt)
-                joy_msg.axes[5] = DeadSpot(joystick.rt)
+                joy_msg.axes[2] = TriggerDeadSpot(joystick.lt)
+
+                right_trigger = TriggerDeadSpot(joystick.rt)
+                # print(right_trigger)
+                joy_msg.axes[5] = right_trigger
 
                 # Encoder
                 # joy_msg.axes[6] = joystick.lt
